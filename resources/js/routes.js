@@ -6,6 +6,7 @@ import Login from "@/pages/Login/Login";
 import Category from "@/pages/Category/Category";
 import CreateCategory from "@/pages/Category/CreateCategory";
 import ViewCategory from "@/pages/Category/ViewCategory";
+import ListCategory from "@/pages/Category/ListCategory";
 // import ErrorPage from "@/pages/Error/Error";
 // Core
 // import TypographyPage from "@/pages/Typography/Typography";
@@ -56,6 +57,11 @@ export default new Router({
                     name: "Category",
                     component: Category,
                     children: [
+                        {
+                            path: "",
+                            name: "ListCategory",
+                            component: ListCategory
+                        },
                         {
                             path: "create",
                             name: "CreateCategory",

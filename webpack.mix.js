@@ -21,3 +21,5 @@ mix.webpackConfig({
     //     ]
     // }
 });
+
+mix.browserSync("hapulico.test");
