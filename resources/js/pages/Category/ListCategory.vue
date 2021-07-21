@@ -4,7 +4,7 @@
             <template #cell(index)="data">
                 {{ data.index }}
             </template>
-            <template #cell()="data">
+            <template #cell(name)="data">
                 <i>{{ data.value }}</i>
             </template>
         </b-table>
