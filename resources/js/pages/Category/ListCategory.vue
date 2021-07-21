@@ -1,6 +1,13 @@
 <template>
     <div>
-        <b-table :items="items" :fields="fields" hover> </b-table>
+        <b-table :items="items" :fields="fields" hover>
+            <template #cell(index)="data">
+                {{ data.index }}
+            </template>
+            <template #cell()="data">
+                <i>{{ data.value }}</i>
+            </template>
+        </b-table>
     </div>
 </template>
 
@@ -8,8 +15,9 @@
 export default {
     data() {
         return {
+            index: "index",
             items: [],
-            fields: ["name", "parent_id"]
+            fields: ["index", "name", "parent_id"]
         };
     },
     async created() {
