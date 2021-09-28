@@ -4,17 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $page = $request->page ? : 1;
+        $perPage = $request->perPage ? : 2;
+        $products = Product::paginate($perPage,['*'],'page',$page);
+
+        $products->appends('perPage',$perPage);
+        return response()->json($products);
     }
 
     /**
@@ -35,7 +42,8 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $product = Product::create($request->all());
+        return $product;
     }
 
     /**
@@ -81,5 +89,12 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         //
+    }
+
+    public function search(Request $request)
+    {
+        $q = $request->q;
+        $products = Product::where('name', 'like', '%'. $q .'%')->take(20)->get();
+        return response()->json($products, 200);
     }
 }

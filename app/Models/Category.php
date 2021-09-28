@@ -13,6 +13,10 @@ class Category extends Model
         'parent_id'
     ];
 
+    protected $attributes = [
+        'parent_id' => 0
+    ];
+
     public $timestamps = true;
 
 }

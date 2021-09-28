@@ -4,9 +4,14 @@ import Router from "vue-router";
 import Layout from "@/components/Layout/Layout";
 import Login from "@/pages/Login/Login";
 import Category from "@/pages/Category/Category";
-import CreateCategory from "@/pages/Category/CreateCategory";
-import ViewCategory from "@/pages/Category/ViewCategory";
-import ListCategory from "@/pages/Category/ListCategory";
+
+import Product from "@/pages/Product/Product";
+import PurchasePrice from "@/pages/PurchasePrice/PurchasePrice";
+import SellingPrice from "@/pages/SellingPrice/SellingPrice";
+import Contract from "@/pages/Contract/Contract";
+import ListContract from "@/pages/Contract/ListContract";
+import CreateContract from "@/pages/Contract/CreateContract";
+import ViewContract from "@/pages/Contract/ViewContract";
 // import ErrorPage from "@/pages/Error/Error";
 // Core
 // import TypographyPage from "@/pages/Typography/Typography";
@@ -55,27 +60,46 @@ export default new Router({
                 {
                     path: "category",
                     name: "Category",
-                    component: Category,
+                    component: Category
+                },
+                {
+                    path: "product",
+                    name: "Product",
+                    component: Product
+                },
+                {
+                    path: "purchase_price",
+                    name: "PurchasePrice",
+                    component: PurchasePrice
+                },
+                {
+                    path: "selling_price",
+                    name: "SellingPrice",
+                    component: SellingPrice
+                },
+                {
+                    path: "contract",
+                    component: Contract,
                     children: [
                         {
                             path: "",
-                            name: "ListCategory",
-                            component: ListCategory
+                            name: "ListContract",
+                            component: ListContract
                         },
                         {
                             path: "create",
-                            name: "CreateCategory",
-                            component: CreateCategory
+                            name: "CreateContract",
+                            component: CreateContract
                         },
                         {
                             path: ":id",
-                            name: "ViewCategory",
-                            component: ViewCategory
+                            name: "ViewContract",
+                            component: ViewContract
                         },
                         {
                             path: ":id/edit",
-                            name: "EditCategory",
-                            component: CreateCategory
+                            name: "CreateContract",
+                            component: CreateContract
                         }
                     ]
                 }

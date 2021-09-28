@@ -30,7 +30,7 @@ class CustomerController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -41,7 +41,7 @@ class CustomerController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Customer  $customer
+     * @param \App\Models\Customer $customer
      * @return \Illuminate\Http\Response
      */
     public function show(Customer $customer)
@@ -52,7 +52,7 @@ class CustomerController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Customer  $customer
+     * @param \App\Models\Customer $customer
      * @return \Illuminate\Http\Response
      */
     public function edit(Customer $customer)
@@ -63,8 +63,8 @@ class CustomerController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Customer  $customer
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Customer $customer
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Customer $customer)
@@ -75,11 +75,18 @@ class CustomerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Customer  $customer
+     * @param \App\Models\Customer $customer
      * @return \Illuminate\Http\Response
      */
     public function destroy(Customer $customer)
     {
         //
+    }
+
+    public function search(Request $request)
+    {
+        $q = $request->q;
+        $customers = Customer::where('company_name', 'like', '%' . $q . '%')->take(20)->get();
+        return response()->json($customers, 200);
     }
 }

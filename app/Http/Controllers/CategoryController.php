@@ -39,13 +39,13 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $category = new Category([
-            'name' => $request->input('name')
+            'name' => $request->input('name'),
+            'parent_id' => $request->input('parent_id')
         ]);
         $category->save();
 
-        return response()->json([
-            'id' => $category->id,
-        ], 201);
+        return response()->json(
+            $category, 201);
     }
 
     /**
