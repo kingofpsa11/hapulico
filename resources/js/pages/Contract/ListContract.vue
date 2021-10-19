@@ -182,31 +182,31 @@ export default {
             const workbook = new ExcelJS.Workbook();
             var blobType =
                 "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
-            workbook.creator = "Me";
-            workbook.lastModifiedBy = "Her";
-            workbook.created = new Date(1985, 8, 30);
-            workbook.modified = new Date();
-            workbook.lastPrinted = new Date(2016, 9, 27);
-            // workbook.addWorksheet(sName, {
-            //     views: [{ activeCell: "A1", showGridLines: false }]
-            // });
-            // var sheet = workbook.getWorksheet(1);
-            // sheet.addRow("Any Information");
-            // sheet.addRow("Any Information");
-            // sheet.addRow("Any Information");
-            // sheet.getRow("");
-            // sheet.columns = [
-            //     { key: "Col1" },
-            //     { key: "Col2" },
-            //     { key: "Col3" },
-            //     { key: "Col4" },
-            //     { key: "Col5" }
-            // ];
-            // sheet.addRows(rows);
-            workbook.xlsx.writeBuffer().then(data => {
-                const blob = new Blob([data], { type: blobType });
-                FileSaver.saveAs(blob, "export.xlsx");
+
+            workbook.addWorksheet("mysheet", {
+                views: [{ activeCell: "A1", showGridLines: true }]
             });
+
+            const sheet = workbook.getWorksheet(1);
+            sheet.mergeCells("A1:D1");
+            sheet.mergeCells("E1:G1");
+
+            var font = {
+                name: "Times New Roman",
+                size: 13,
+                bold: true
+            };
+
+            sheet.properties.font = font;
+            const cell = sheet.getCell("A1");
+            cell.value = "ĐƠN HÀNG";
+            cell.font = font;
+            cell.alignment = { vertical: "middle", horizontal: "right" };
+            sheet.getCell("E1").numFmt = '"So: "000"/DH2021/HPL"';
+            sheet.getCell("E1").value = 108;
+            const buffer = await workbook.xlsx.writeBuffer();
+            const blob = new Blob([buffer], { type: blobType });
+            FileSaver(blob, "text.xlsx");
         }
     },
     watch: {

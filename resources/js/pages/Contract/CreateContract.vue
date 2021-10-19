@@ -177,7 +177,7 @@
                 <div class="float-right">
                     <b-button variant="warning">Huỷ</b-button>
                     <b-button variant="primary" @click="storeContract"
-                        >Tạo mới</b-button
+                        >Lưu</b-button
                     >
                 </div>
             </template>
@@ -194,6 +194,8 @@ export default {
     data() {
         return {
             errors: [],
+            isEdit: false,
+            id: "",
             item: {
                 id: "",
                 product: {
@@ -247,6 +249,12 @@ export default {
     },
     async created() {
         this.contract.details.push({ ...this.item });
+        if (typeof this.$route.params.id !== "undefined") {
+            this.isEdit = true;
+            this.id = this.$route.params.id;
+            const response = await axios.get(`/api/contracts/${this.id}`);
+            this.contract = response.data.data;
+        }
     },
     methods: {
         async storeContract(e) {
@@ -256,7 +264,7 @@ export default {
                     "/api/contracts",
                     this.contract
                 );
-                this.$router.push(`contract/${response.data.id}`);
+                this.$router.push(`${response.data.id}`);
             } catch (error) {
                 this.errors = error.response.data;
                 console.log(error.response);
